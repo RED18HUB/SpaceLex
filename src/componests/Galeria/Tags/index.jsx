@@ -1,6 +1,5 @@
-import { styled } from 'styled-components';
 import tags from './tags.json'
-
+import { styled } from 'styled-components'
 
 const BarraTags = styled.div`
     display: flex;
@@ -13,30 +12,25 @@ const TituloTags = styled.p`
     font-size: 24px;
     margin: 0;
 `
-
-
-
 const Tag = styled.button`
     font-size: 24px;
     color: #FFFFFF;
-    background: rgba(217, 217, 217, 0.3);
-    border-radius: 10px;
+    background-color:rgba(217, 217, 217, 0.3);
     cursor: pointer;
     transition: background-color 0.3s ease;
     padding: 12px;
     box-sizing: border-box;
-    border: 2px solid transparent;
-    &:hover {
-      border-color: #C98CF1;
+    border-radius: 10px;
+    border-color: transparent;
+    &:hover{
+        border-color: #C98CF1;
     }
 `
-
 const Div = styled.div`
     display: flex;
     gap: 24px;
     justify-content: end;
 `
-
 const Tags = ({ setTag }) => {
     return (
         <BarraTags>

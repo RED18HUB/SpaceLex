@@ -7,10 +7,10 @@ import Banner from "./componests/Banner/Banner"
 import banner from "./assets/banner.png"
 import Galeria from "./componests/Galeria/Galeria"
 import fotos from "./fotos.json"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ModalZoom from "./componests/ModalZoom"
 import Pie from "./componests/Pie"
-import { useEffect } from "react"
+
 
 const FondoGradiente = styled.div`
 background: linear-gradient(175deg, #041833 4.16%, #04244F 48%, #154580 96.76%);
@@ -31,8 +31,6 @@ const ContenidoGaleria = styled.section`
   flex-direction: column;
   flex-grow: 1;
 `
-
-
 const App = () => {
   const [fotosDeGaleria, setFotosDeGaleria] = useState(fotos)
   const [filtro, setFiltro] = useState('')
@@ -49,50 +47,51 @@ const App = () => {
   }, [filtro, tag])
 
   const alAlternarFavorito = (foto) => {
-
     if (foto.id === fotoSeleccionada?.id) {
       setFotoSeleccionada({
         ...fotoSeleccionada,
         favorita: !fotoSeleccionada.favorita
       })
-
     }
-
-    setFotosDeGaleria(fotosDeGaleria.map(fotoDeGaleria => {
+    setFotosDeGaleria(fotosDeGaleria.map(fotosDeGaleria => {
       return {
-        ...fotoDeGaleria,
-        favorita: fotoDeGaleria.id === foto.id ? !foto.favorita : fotoDeGaleria.favorita
+        ...fotosDeGaleria,
+        favorita: fotosDeGaleria.id === foto.id ? !foto.favorita : fotosDeGaleria.favorita
       }
     }))
   }
 
-
-  return (
-    <>
-      <FondoGradiente>
-        <GlobalStyles />
-        <AppContainer>
-          <Cabecera 
-            filtro={filtro}
-            setFiltro={setFiltro}
-          />
-          <MainContainer>
-            <BarraLateral />
-            <ContenidoGaleria>
-              <Banner texto="La galería más completa de fotos del espacio" backgroundImage={banner} />
-
-              <Galeria alSeleccionarFoto={foto => setFotoSeleccionada(foto)} fotos={fotosDeGaleria} alAlternarFavorito={alAlternarFavorito}
-               setTag={setTag} />
-            </ContenidoGaleria>
-          </MainContainer>
-        </AppContainer>
-        <ModalZoom foto={fotoSeleccionada}
-          alCerrar={() => setFotoSeleccionada(null)}
-          alAlternarFavorito={alAlternarFavorito} />
-         <Pie/>
-      </FondoGradiente>
-    </>
+ return (
+    <FondoGradiente>
+      <GlobalStyles />
+      <AppContainer>
+        <Cabecera
+          filtro={filtro}
+          setFiltro={setFiltro}
+        />
+        <MainContainer>
+          <BarraLateral />
+          <ContenidoGaleria>
+            <Banner
+              backgroundImage={banner}
+              texto='La galería más completa de fotos del espacio.'
+            />
+            <Galeria
+              fotos={fotosDeGaleria}
+              fotoSelecionada={foto => setFotoSeleccionada(foto)}
+              alAlternarFavorito={alAlternarFavorito}
+              setTag={setTag}
+            />
+          </ContenidoGaleria>
+        </MainContainer>
+      </AppContainer>
+      <ModalZoom
+        foto={fotoSeleccionada}
+        close={() => setFotoSeleccionada(null)}
+        alAlternarFavorito={alAlternarFavorito}
+      />
+      <Pie />
+    </FondoGradiente>
   )
 }
-
 export default App

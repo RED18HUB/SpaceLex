@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import Titulo from "../Titulo"
 import Populares from "./Populares"
-import Tag from "./Tags"
+import Tags from "./Tags"
 import Imagen from "./Imagen"
 
 const GaleriaContainer = styled.div`
@@ -20,25 +20,18 @@ const ImagenesContainer = styled.section`
 `
 
 
-const Galeria = ({ fotos = [], setTag,alSeleccionarFoto,alAlternarFavorito }) => {
-
+const Galeria = ({ fotos = [], setTag, fotoSelecionada, alAlternarFavorito }) => {
     return (
         <>
-            <Tag  setTag={setTag}/>
+            <Tags setTag={setTag} />
             <GaleriaContainer>
                 <SeccionFluida>
-                    <Titulo>Navegue por la galería</Titulo>
+                    <h1>Navega por la galería</h1>
                     <ImagenesContainer>
-                        {fotos.map(foto => <Imagen
-                        alAlternarFavorito={alAlternarFavorito}
-                        alSolicitarZoom={alSeleccionarFoto}
-                            key={foto.id}
-                            foto={foto} />)
-                        }
+                        {fotos.map(foto => <Imagen foto={foto} key={foto.id} alSolicitarZoom={fotoSelecionada} alAlternarFavorito={alAlternarFavorito} />)}
                     </ImagenesContainer>
                 </SeccionFluida>
                 <Populares />
-
             </GaleriaContainer>
         </>
     )
